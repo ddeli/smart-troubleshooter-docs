@@ -1,0 +1,77 @@
+# === Java & Spring Boot ===
+/target/
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+*.log
+*.h2.db
+
+# === Maven ===
+/.mvn/
+!/.mvn/wrapper/maven-wrapper.jar
+mvnw
+mvnw.cmd
+
+# === Gradle (falls du es nutzt) ===
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# === IntelliJ IDEA / WebStorm ===
+.idea/
+*.iws
+*.ipr
+*.iml
+out/
+.idea_modules/
+*.bak
+*.swp
+
+# === Node.js / Angular ===
+node_modules/
+dist/
+.angular/
+npm-debug.log*
+yarn-error.log
+.env
+.env.*.local
+package-lock.json
+
+# === Angular Build Output ===
+/LLMDemoFrontend/dist/
+LLMDemoFrontend/.angular/cache/
+LLMDemoFrontend/.angular/
+
+# === Docker ===
+*.pid
+*.tar
+*.log
+docker-compose.override.yml
+.docker/
+
+# === OS ===
+.DS_Store
+Thumbs.db
+
+# === Ollama (lokale Modelle) ===
+ollama-models/
+ollama.db
+
+# === Logs ===
+logs/
+*.log
+*.log.*
+log/
+
+# === Test & Coverage ===
+coverage/
+lcov-report/
+*.lcov
+
+# === Misc ===
+/tmp/
+*.tmp
+*.bak
+*.old
