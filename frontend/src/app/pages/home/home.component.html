@@ -1,5 +1,11 @@
 <div>
-  <p style="text-align: center">Home</p>
+  <h1 style="padding-top: 20px" >Smart Troubleshoot Docs</h1>
+  <h3 >Input Text</h3>
+  <app-input></app-input>
+
+  <app-spinner (fetchingFinished)="onFetchingFinished()" (buttonPressed)="onButtonPressed()"></app-spinner>
+  <h3 >Output Doc</h3>
+  <app-output *ngIf="showOutput"></app-output>
 </div>
 
 

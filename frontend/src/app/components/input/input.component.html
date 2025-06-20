@@ -1,1 +1,14 @@
-<p>input works!</p>
+<form clrForm>
+  <clr-textarea-container>
+    <textarea
+      clrTextarea
+      placeholder="Enter troubleshoot text here..."
+      [(ngModel)]="input"
+      name="input"
+      required
+      rows="1"
+      (input)="autoResize($event)"
+      class="autosize-textarea"
+    ></textarea>
+  </clr-textarea-container>
+</form>
