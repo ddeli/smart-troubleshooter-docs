@@ -4,8 +4,9 @@
   <app-input></app-input>
 
   <app-spinner [isLoading]="loading" (fetchingFinished)="onFetchingFinished()" (buttonPressed)="onButtonPressed()"></app-spinner>
-  <h3 >Output Doc</h3>
-  <p>Show Output Variable: {{showOutput}}</p>
+
+  <p *ngIf="loading">Please wait while the LLM is processing your request</p>
+  <h3 *ngIf="showOutput">Doc-Ready Output Text</h3>
   <app-output *ngIf="showOutput && documentation" [documentation]="documentation"></app-output>
 </div>
 

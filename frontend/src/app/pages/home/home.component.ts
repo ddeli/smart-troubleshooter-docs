@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {InputComponent} from '../../components/input/input.component';
 import {SpinnerComponent} from '../../components/spinner/spinner.component';
 import {OutputComponent} from '../../components/output/output.component';
@@ -12,8 +12,11 @@ import {HttpClient} from '@angular/common/http';
   standalone: true,
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
 
+  ngOnInit(){
+    this.showOutput = false;
+  }
 
   inputText: string = '';
 
