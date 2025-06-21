@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ClrCommonFormsModule, ClrTextareaModule} from '@clr/angular';
 import {FormsModule} from '@angular/forms';
 
@@ -14,7 +14,15 @@ import {FormsModule} from '@angular/forms';
   styleUrl: './output.component.scss'
 })
 export class OutputComponent {
-  input:String ="";
+
+
+
+  @Input() documentation = {
+    title: '',
+    symptom: '',
+    problem: '',
+    solution: ''
+  };
 
 
   autoResize(event: Event) {

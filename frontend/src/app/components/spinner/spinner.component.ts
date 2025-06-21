@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ClrSpinnerModule} from '@clr/angular';
 import {NgIf} from '@angular/common';
 
@@ -15,15 +15,24 @@ import {NgIf} from '@angular/common';
 export class SpinnerComponent {
   fetchingUserInformation = false;
 
+  @Input() isLoading: boolean = false;
   @Output() fetchingFinished = new EventEmitter<void>();
   @Output() buttonPressed = new EventEmitter<void>();
 
   toggleUserInfo() {
     this.fetchingUserInformation = !this.fetchingUserInformation;
     this.buttonPressed.emit();
-    setTimeout(() => {  //Mock
+    if(this.isLoading) {
       this.fetchingUserInformation = false;
       this.fetchingFinished.emit();
-    }, 2000);
+    }
+    // setTimeout(() => {  //Mock
+    //   this.fetchingUserInformation = false;
+    //   this.fetchingFinished.emit();
+    // }, 2000);
+  }
+
+  onClick() {
+    this.buttonPressed.emit();
   }
 }

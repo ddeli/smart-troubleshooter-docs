@@ -1,7 +1,7 @@
 <div>
-  <clr-spinner *ngIf="fetchingUserInformation"></clr-spinner>
+  <clr-spinner *ngIf="isLoading"></clr-spinner>
 
-  <button *ngIf="!fetchingUserInformation" (click)="toggleUserInfo()" class="btn btn-primary">
+  <button *ngIf="!isLoading" (click)="toggleUserInfo();onClick()" class="btn btn-primary">
     Docify
   </button>
 </div>

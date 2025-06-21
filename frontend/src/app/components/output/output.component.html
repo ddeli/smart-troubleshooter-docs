@@ -1,30 +1,61 @@
-<div>
+<form clrForm>
   <p>Title</p>
-  <form clrForm>
+
     <clr-textarea-container>
-      <textarea clrTextarea placeholder="Enter troubleshoot text here..." [(ngModel)]="input" name="input" required></textarea>
+      <textarea
+        clrTextarea
+        name="title"
+        [(ngModel)]="documentation.title"
+        required
+        rows="1"
+        (input)="autoResize($event)"
+        class="autosize-textarea"
+      ></textarea>
     </clr-textarea-container>
-  </form>
+
 
   <p>Symptom</p>
-  <form clrForm>
+
     <clr-textarea-container>
-      <textarea clrTextarea placeholder="Enter troubleshoot text here..." [(ngModel)]="input" name="input" required></textarea>
+      <textarea
+        clrTextarea
+        name="symptom"
+        [(ngModel)]="documentation.symptom"
+        required
+        rows="6"
+        (input)="autoResize($event)"
+        class="autosize-textarea"
+      ></textarea>
     </clr-textarea-container>
-  </form>
+
 
   <p>Problem</p>
-  <form clrForm>
-    <clr-textarea-container>
-      <textarea clrTextarea placeholder="Enter troubleshoot text here..." [(ngModel)]="input" name="input" required></textarea>
-    </clr-textarea-container>
-  </form>
 
-  <p>Solution:</p>
-  <form clrForm>
     <clr-textarea-container>
-      <textarea clrTextarea placeholder="Enter troubleshoot text here..." [(ngModel)]="input" name="input" required></textarea>
+      <textarea
+        clrTextarea
+        name="problem"
+        [(ngModel)]="documentation.problem"
+        required
+        rows="6"
+        (input)="autoResize($event)"
+        class="autosize-textarea"
+      ></textarea>
+    </clr-textarea-container>
+
+
+  <p>Solution</p>
+
+    <clr-textarea-container>
+      <textarea
+        clrTextarea
+        name="solution"
+        [(ngModel)]="documentation.solution"
+        required
+        rows="6"
+        (input)="autoResize($event)"
+        class="autosize-textarea"
+      ></textarea>
     </clr-textarea-container>
   </form>
-</div>
 

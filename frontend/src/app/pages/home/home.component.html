@@ -3,9 +3,10 @@
   <h3 >Input Text</h3>
   <app-input></app-input>
 
-  <app-spinner (fetchingFinished)="onFetchingFinished()" (buttonPressed)="onButtonPressed()"></app-spinner>
+  <app-spinner [isLoading]="loading" (fetchingFinished)="onFetchingFinished()" (buttonPressed)="onButtonPressed()"></app-spinner>
   <h3 >Output Doc</h3>
-  <app-output *ngIf="showOutput"></app-output>
+  <p>Show Output Variable: {{showOutput}}</p>
+  <app-output *ngIf="showOutput && documentation" [documentation]="documentation"></app-output>
 </div>
 
 
