@@ -34,22 +34,29 @@ export class HomeComponent implements OnInit{
   onButtonPressed() {
     if (this.showOutput) {
       // this.showOutput = false;
-    }
 
+    }
+    console.log('buttonPressed');
     this.sendRequest();
   }
-  onFetchingFinished() {
-    // this.showOutput = !this.showOutput;
+  // onFetchingFinished() {
+  //   // this.showOutput = !this.showOutput;
+  //   console.log('fetchingFinished');
+  // }
+
+  handleInputText(text: string) {
+    this.inputText = text;
   }
 
+
   sendRequest() {
-    console.log("TEST")
+
     this.documentation = null;
     this.loading = true;
     this.showOutput = false;
 
     const body = { text: this.inputText };
-
+    console.log(`TESTPRINT: ${body.text}`)
     this.http.post<{ documentation: any }>('/generate-doc-adjust', body)
       .subscribe({
         next: response => {

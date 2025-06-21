@@ -26,13 +26,9 @@ export class SpinnerComponent {
       this.fetchingUserInformation = false;
       this.fetchingFinished.emit();
     }
-    // setTimeout(() => {  //Mock
-    //   this.fetchingUserInformation = false;
-    //   this.fetchingFinished.emit();
-    // }, 2000);
   }
 
-  onClick() {
-    this.buttonPressed.emit();
-  }
+  // onClick() {
+  //   this.buttonPressed.emit();
+  // }
 }
