@@ -1,3 +1,27 @@
-This is a test for the FileReader
+The following examples demonstrate how to transform input texts into professional technical documentation following the required structure. These examples serve as style and format references only.
 
-One empty line and then this text
+Do not copy, repeat, or include any part of these examples in your output.
+
+--- BEGIN EXAMPLES ---
+
+Input:
+Die Anwendung stürzt beim Start mit einer NullReferenceException ab. Die config.json fehlt.
+
+Expected Output:
+title: Absturz beim Start wegen fehlender Konfigurationsdatei
+symptom: Die Anwendung bricht sofort beim Start mit einer NullReferenceException ab.
+problem: Die Datei config.json fehlt, wodurch beim Zugriff eine NullReferenceException ausgelöst wird.
+solution: Stellen Sie sicher, dass die Datei config.json vorhanden ist, oder implementieren Sie eine Prüfung mit Fallback-Mechanismus für Standardwerte.
+
+---
+
+Input:
+The application crashes during startup with a NullReferenceException. The config.json file is missing.
+
+Expected Output:
+title: Crash at startup due to missing configuration file
+symptom: The application immediately crashes on startup showing a NullReferenceException.
+problem: The config.json file is missing, causing a NullReferenceException during access.
+solution: Ensure that the config.json file exists or implement a check with a fallback mechanism to load default settings.
+
+--- END EXAMPLES ---

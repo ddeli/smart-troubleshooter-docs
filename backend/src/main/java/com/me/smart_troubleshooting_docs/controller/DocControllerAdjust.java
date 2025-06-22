@@ -36,34 +36,44 @@ public class DocControllerAdjust {
     public ResponseEntity<?> generateDocumentation(@RequestBody Map<String, String> body) throws IOException {
 
         TextFileReader reader = new TextFileReader();
-        String content = reader.readTextFileAsString("additionalPrompt.txt");
-        System.out.println(content);
+        String additionalPrompt = reader.readTextFileAsString("additionalPrompt.txt");
+        System.out.println(additionalPrompt);
 
         String inputText = body.getOrDefault("text", "");
 
         String prompt = """
-            Wandle den folgenden Text in ausführliche strukturierte technische Dokumentation für eine Wissensbasis.
-            Der inhalt der einzelnen teile soll immer in der selben sprache wie der Eingabetext sein.
-            Achte darauf, dass der Text professionell und nicht umgangssprachlich wird.
-            Wenn in dem eingabetext keine solution beschrieben ist dann suche selber eine und achte auf die details damit es keine unpassende antwort wird.
-            halte unter allen umständen die vorgegebene  Beispiel Grundstruktur mit den teilen: title, symptom, problem und solution ein.
-            Recherchiere so viele informationen wie möglich aber Vermeide redundante teile zwischen den einzelnen teilen.
-            
-            Text: 'Eigabetext'
-            
-             ---Beispiel Grundstruktur response beginnt hier---
-            title: 
-            symptom: 
-            problem:
-            solution:
-            ---Beispiel Grundstruktur response endet hier---
-            
-            
-            Jetzt dein Text:
-            %s
-
-            documentation:
-            """.formatted(inputText);
+                You are a professional technical writer.
+                
+                    Your task is to transform the given text into a formal, structured technical documentation article using the following structure:
+                
+                    ---
+                    title:\s
+                    symptom:\s
+                    problem:\s
+                    solution:
+                    ---
+                
+                    Before writing, follow these steps **exactly**:
+                
+                    1. Detect the primary language of the input text.
+                    2. Use that same language for your entire output.
+                    3. If the input is written in German (even partially), respond completely in German.
+                    4. Do not use any other language than the one used in the input. Never use Spanish unless the input is fully Spanish.
+                    5. Keep all English technical terms in their original form, regardless of the input language.
+                    6. Write professionally, without casual or conversational tone.
+                    7. If no solution is provided in the input, infer a logical one based on the problem.
+                    8. Avoid redundancy across sections.
+                    
+                    %s
+                    
+                    IMPORTANT: Under no circumstances include or copy any content, phrases, or sentences from the example section (if any available) above in your output. Your response must be fully original and based solely on the input text.
+                    Only return the documentation, nothing else.
+                
+                    INPUT TEXT:
+                    %s
+                
+                    Generate the structured documentation now:
+            """.formatted(additionalPrompt,inputText);
 
         // Call Ollama API
         RestTemplate restTemplate = new RestTemplate();
@@ -78,8 +88,8 @@ public class DocControllerAdjust {
         request.put("prompt", prompt);
         request.put("stream", false);
                 request.put("options", Map.of(
-                "temperature", 0.3,      // Kreativität (0.1 = präzise, 1.0 = kreativ)
-                "num_ctx", 4096          // Kontextlänge (max. Tokens)
+                "temperature", 0.3,      // creativity (0.1 = precise, 1.0 = creative)
+                "num_ctx", 8192          // context (max. tokens)
         ));
 
         HttpHeaders headers = new HttpHeaders();
