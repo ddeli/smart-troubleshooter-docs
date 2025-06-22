@@ -1,15 +1,19 @@
 package com.me.smart_troubleshooting_docs.controller;
 
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -18,8 +22,23 @@ import java.util.Map;
 @RequestMapping("/generate-doc-adjust")
 public class DocControllerAdjust {
 
+    public class TextFileReader {
+
+        public String readTextFileAsString(String filename) throws IOException {
+            ClassPathResource resource = new ClassPathResource(filename);
+            try (var inputStream = resource.getInputStream()) {
+                return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+            }
+        }
+    }
+
     @PostMapping
-    public ResponseEntity<?> generateDocumentation(@RequestBody Map<String, String> body) {
+    public ResponseEntity<?> generateDocumentation(@RequestBody Map<String, String> body) throws IOException {
+
+        TextFileReader reader = new TextFileReader();
+        String content = reader.readTextFileAsString("additionalPrompt.txt");
+        System.out.println(content);
+
         String inputText = body.getOrDefault("text", "");
 
         String prompt = """
