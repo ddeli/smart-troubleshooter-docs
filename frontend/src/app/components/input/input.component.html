@@ -2,11 +2,11 @@
   <clr-textarea-container>
     <textarea
       clrTextarea
-      placeholder="Enter troubleshoot text here..."
+      placeholder="Enter troubleshoot text here... Start by specify the input language with [language:input language] Your Text..."
       [(ngModel)]="inputText"
       name="input"
       required
-      rows="1"
+      rows="3"
       (input)="autoResize($event); submitText()"
       spellcheck="false"
       class="autosize-textarea"
