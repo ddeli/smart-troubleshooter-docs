@@ -60,8 +60,9 @@ public class DocControllerAdjust {
                     3. If the input is written in German (even partially), respond completely in German.
                     4. Do not use any other language than the one used in the input. 
                     
-                    INPUT TEXT:
+                    INPUT TEXT STARTS HERE:
                     %s
+                    INPUT TEXT ENDS HERE:
                     
                     5. Keep all English technical terms in their original form, regardless of the input language.
                     6. Write professionally, without casual or conversational tone.
