@@ -58,7 +58,11 @@ public class DocControllerAdjust {
                     1. Detect the primary language of the input text.
                     2. Use that same language for your entire output.
                     3. If the input is written in German (even partially), respond completely in German.
-                    4. Do not use any other language than the one used in the input. Never use Spanish unless the input is fully Spanish.
+                    4. Do not use any other language than the one used in the input. 
+                    
+                    INPUT TEXT:
+                    %s
+                    
                     5. Keep all English technical terms in their original form, regardless of the input language.
                     6. Write professionally, without casual or conversational tone.
                     7. If no solution is provided in the input, infer a logical one based on the problem.
@@ -69,11 +73,10 @@ public class DocControllerAdjust {
                     IMPORTANT: Under no circumstances include or copy any content, phrases, or sentences from the example section (if any available) above in your output. Your response must be fully original and based solely on the input text.
                     Only return the documentation, nothing else.
                 
-                    INPUT TEXT:
-                    %s
+                    
                 
                     Generate the structured documentation now:
-            """.formatted(additionalPrompt,inputText);
+            """.formatted(inputText,additionalPrompt);
 
         // Call Ollama API
         RestTemplate restTemplate = new RestTemplate();
