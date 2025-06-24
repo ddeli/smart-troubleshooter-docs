@@ -5,7 +5,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +21,7 @@ import java.util.Map;
 @RequestMapping("/generate-doc-adjust")
 public class DocControllerAdjust {
 
-    public class TextFileReader {
+    public static class TextFileReader {
 
         public String readTextFileAsString(String filename) throws IOException {
             ClassPathResource resource = new ClassPathResource(filename);
@@ -42,39 +41,39 @@ public class DocControllerAdjust {
 
         String prompt = """
                 You are a professional technical writer.
-                
+            
                     Your task is to transform the given text into a formal, structured technical documentation article using the following structure:
-                
+            
                     ---
                     title:\s
                     symptom:\s
                     problem:\s
                     solution:
                     ---
-                
+            
                     Before writing, follow these steps **exactly**:
-                
+            
                     1. Detect the primary language of the input text.
                     2. Use that same language for your entire output.
                     3. If the input is written in German (even partially), respond completely in German.
-                    4. Do not use any other language than the one used in the input. 
-                    
+                    4. Do not use any other language than the one used in the input.
+            
                     INPUT TEXT STARTS HERE:
                     %s
                     INPUT TEXT ENDS HERE:
-                    
+            
                     5. Keep all English technical terms in their original form, regardless of the input language.
                     6. Write professionally, without casual or conversational tone.
                     7. If no solution is provided in the input, infer a logical one based on the problem.
                     8. Avoid redundancy across sections.
-                    
+            
                     %s
-                    
+            
                     IMPORTANT: Under no circumstances include or copy any content, phrases, or sentences from the example section (if any available) above in your output. Your response must be fully original and based solely on the input text.
                     Only return the documentation, nothing else.
-                
-                    
-                
+            
+            
+            
                     Generate the structured documentation now:
             """.formatted(inputText,additionalPrompt);
 
@@ -84,10 +83,7 @@ public class DocControllerAdjust {
 
         //// MISTRAL
         Map<String, Object> request = new HashMap<>();
-        request.put("model", "mistral");
-//        request.put("model", "mistral:7b-instruct-q4_K_M");
-//        request.put("model", "llama2:13b");
-//        request.put("model", "phi3:medium");
+        request.put("model", "mistral");// replace this model if needed eg. "mistral:7b-instruct-q4_K_M","llama2:13b","phi3:medium" etc.
         request.put("prompt", prompt);
         request.put("stream", false);
                 request.put("options", Map.of(
@@ -102,6 +98,7 @@ public class DocControllerAdjust {
         ResponseEntity<Map> response = restTemplate.postForEntity(ollamaUrl, entity, Map.class);
 
         // Parse the response
+        assert response.getBody() != null;
         String result = (String) response.getBody().get("response");
 
         System.out.println(result);
@@ -160,7 +157,7 @@ public class DocControllerAdjust {
 
             // If not a new section, append to current content
             if (!isNewSection && currentSection != null) {
-                if (currentContent.length() > 0) {
+                if (!currentContent.isEmpty()) {
                     currentContent.append("\n");
                 }
                 currentContent.append(line);
