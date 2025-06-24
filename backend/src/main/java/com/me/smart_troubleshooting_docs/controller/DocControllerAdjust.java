@@ -37,7 +37,6 @@ public class DocControllerAdjust {
 
         TextFileReader reader = new TextFileReader();
         String additionalPrompt = reader.readTextFileAsString("additionalPrompt.txt");
-        System.out.println(additionalPrompt);
 
         String inputText = body.getOrDefault("text", "");
 
