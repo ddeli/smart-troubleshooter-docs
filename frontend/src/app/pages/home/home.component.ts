@@ -4,6 +4,7 @@ import {SpinnerComponent} from '../../components/spinner/spinner.component';
 import {OutputComponent} from '../../components/output/output.component';
 import {NgIf} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
+import { environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -57,23 +58,25 @@ export class HomeComponent implements OnInit{
 
     const body = { text: this.inputText };
     console.log(`TESTPRINT: ${body.text}`)
-    this.http.post<{ documentation: any }>('/generate-doc-adjust', body)
-      .subscribe({
-        next: response => {
-          this.documentation = response.documentation;
-          this.loading = false;  // Spinner aus
-          this.showOutput = true;
-        },
-        error: err => {
-          this.documentation = {
-            title: '',
-            symptom: '',
-            problem: 'Fehler: ' + (err.message || err.statusText),
-            solution: '',
-          };
-          this.loading = false;  // Spinner aus
-          this.showOutput = true;
-        }
-      });
+    this.http.post<{ documentation: any }>(
+      `${environment.apiUrl}/generate-doc-adjust`,
+      body
+    ).subscribe({
+      next: response => {
+        this.documentation = response.documentation;
+        this.loading = false;
+        this.showOutput = true;
+      },
+      error: err => {
+        this.documentation = {
+          title: '',
+          symptom: '',
+          problem: 'Fehler: ' + (err.message || err.statusText),
+          solution: '',
+        };
+        this.loading = false;
+        this.showOutput = true;
+      }
+    });
   }
 }

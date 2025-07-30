@@ -5,10 +5,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -30,10 +27,12 @@ public class DocControllerAdjust {
             }
         }
     }
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     public ResponseEntity<?> generateDocumentation(@RequestBody Map<String, String> body) throws IOException {
 
+
+        System.out.println("Backend Called!!!");
         TextFileReader reader = new TextFileReader();
         String additionalPrompt = reader.readTextFileAsString("additionalPrompt.txt");
 
@@ -79,6 +78,7 @@ public class DocControllerAdjust {
 
         // Call Ollama API
         RestTemplate restTemplate = new RestTemplate();
+//        String ollamaUrl = "http://ollama:11434/api/generate"; for docker
         String ollamaUrl = "http://localhost:11434/api/generate";
 
         //// MISTRAL
