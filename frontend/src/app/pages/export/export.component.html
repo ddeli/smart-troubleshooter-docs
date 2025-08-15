@@ -1,4 +1,35 @@
 <div>
-  <p>Export the existing database entries</p>
-  <button class="btn btn-primary">Export</button>
+  <div class="database-export-container">
+    <h2>Database Export</h2>
+
+    <div class="action-section">
+      <p>Export the existing database entries</p>
+      <button class="btn btn-primary" (click)="loadData()">
+        Show Database Entries
+      </button>
+    </div>
+
+    <div *ngIf="responseData" class="results-section">
+      <h3>Database Entries ({{responseData.length}}):</h3>
+
+      <div class="entry-grid">
+        <div *ngFor="let entry of responseData" class="entry-card">
+          <div class="entry-header">
+            <span class="entry-id">#{{entry.id}}</span>
+            <span class="user-id">User: {{entry.userId}}</span>
+          </div>
+          <h4 class="entry-title">{{entry.title}}</h4>
+          <p class="entry-body">{{entry.body}}</p>
+        </div>
+      </div>
+
+      <!-- Alternative: Raw JSON View -->
+      <div class="raw-json-toggle">
+        <button (click)="showRawJson = !showRawJson" class="btn btn-sm btn-secondary">
+          {{showRawJson ? 'Hide' : 'Show'}} Raw JSON
+        </button>
+        <pre *ngIf="showRawJson">{{ responseData | json }}</pre>
+      </div>
+    </div>
+  </div>
 </div>

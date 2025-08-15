@@ -191,17 +191,4 @@ public class DocControllerAdjust {
 
         return result;
     }
-
-    @GetMapping("/test-insert")
-    public ResponseEntity<String> testInsert() {
-        Article testArticle = new Article();
-        testArticle.setTitle("Test Artikel");
-        testArticle.setSymptom("Test Symptom");
-        testArticle.setProblem("Test Problem");
-        testArticle.setSolution("Test Lösung");
-
-        articleRepository.save(testArticle);
-
-        return ResponseEntity.ok("Testartikel eingefügt: " + testArticle.getId());
-    }
 }

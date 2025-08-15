@@ -1,7 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {Component, inject, Input} from '@angular/core';
 import {ClrCommonFormsModule, ClrTextareaModule} from '@clr/angular';
 import {FormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
+import {DataService} from '../../services/data.service';
 
 @Component({
   selector: 'app-output',
@@ -17,7 +18,7 @@ import {NgIf} from '@angular/common';
 })
 export class OutputComponent {
 
-
+  private dataService = inject(DataService);
 
   @Input() documentation = {
     title: '',
@@ -25,6 +26,21 @@ export class OutputComponent {
     problem: '',
     solution: ''
   };
+
+  saveArticle() {
+    this.dataService.saveArticle(this.documentation).subscribe(
+      response => {
+        console.log('Article successfully saved', response);
+        // Optional: Show success notification
+        alert('Article successfully saved!');
+      },
+      error => {
+        console.error('Error saving article', error);
+        // Optional: Display error notification
+        alert('Error saving article!');
+      }
+    );
+  }
 
 
   autoResize(event: Event) {

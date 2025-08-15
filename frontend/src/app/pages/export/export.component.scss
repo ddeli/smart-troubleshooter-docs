@@ -1,5 +1,65 @@
-div{
-  margin-bottom: 60px;
-  margin-top: 60px;
-  text-align: center;
+.database-export-container {
+  max-width: 800px; /* Schmaler für bessere Lesbarkeit */
+  margin: 2rem auto;
+  padding: 1rem;
+
+  .action-section {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+  }
+
+  .results-section {
+    margin-top: 2rem;
+    border-top: 1px solid #eee;
+    padding-top: 1rem;
+  }
+
+  .entry-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+
+  .entry-card {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .entry-title {
+      margin: 0 0 0.5rem 0;
+      color: #333;
+    }
+
+    .entry-body {
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      color: #555;
+      white-space: pre-line; /* Erhält Zeilenumbrüche im Text */
+    }
+  }
+
+  .raw-json-toggle {
+    margin-top: 2rem;
+
+    pre {
+      background: #f5f5f5;
+      padding: 1rem;
+      border-radius: 4px;
+      max-height: 300px;
+      overflow: auto;
+    }
+  }
 }
