@@ -1,5 +1,8 @@
 package com.me.smart_troubleshooting_docs.controller;
 
+import com.me.smart_troubleshooting_docs.model.Article;
+import com.me.smart_troubleshooting_docs.repository.ArticleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -18,23 +21,24 @@ import java.util.Map;
 @RequestMapping("/generate-doc-adjust")
 public class DocControllerAdjust {
 
-    public static class TextFileReader {
+    @Autowired
+    private ArticleRepository articleRepository;
 
-        public String readTextFileAsString(String filename) throws IOException {
-            ClassPathResource resource = new ClassPathResource(filename);
-            try (var inputStream = resource.getInputStream()) {
-                return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
-            }
+    public String readTextFileAsString(String filename) throws IOException {
+        ClassPathResource resource = new ClassPathResource(filename);
+        try (var inputStream = resource.getInputStream()) {
+            return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
         }
     }
+
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     public ResponseEntity<?> generateDocumentation(@RequestBody Map<String, String> body) throws IOException {
-
-
         System.out.println("Backend Called!!!");
-        TextFileReader reader = new TextFileReader();
-        String additionalPrompt = reader.readTextFileAsString("additionalPrompt.txt");
+
+        // Direkt die readTextFileAsString-Methode verwenden, ohne TextFileReader
+        String additionalPrompt = readTextFileAsString("additionalPrompt.txt");
+
 
         String inputText = body.getOrDefault("text", "");
 
@@ -78,8 +82,8 @@ public class DocControllerAdjust {
 
         // Call Ollama API
         RestTemplate restTemplate = new RestTemplate();
-//        String ollamaUrl = "http://ollama:11434/api/generate"; for docker
-        String ollamaUrl = "http://localhost:11434/api/generate";
+        String ollamaUrl = "http://ollama:11434/api/generate"; //for docker
+//        String ollamaUrl = "http://localhost:11434/api/generate";
 
         //// MISTRAL
         Map<String, Object> request = new HashMap<>();
@@ -111,6 +115,15 @@ public class DocControllerAdjust {
         orderedDoc.put("symptom", documentation.getOrDefault("symptom", ""));
         orderedDoc.put("problem", documentation.getOrDefault("problem", ""));
         orderedDoc.put("solution", documentation.getOrDefault("solution", ""));
+
+        // Save article to db
+
+        Article article = new Article();
+        article.setTitle(documentation.getOrDefault("title", ""));
+        article.setSymptom(documentation.getOrDefault("symptom", ""));
+        article.setProblem(documentation.getOrDefault("problem", ""));
+        article.setSolution(documentation.getOrDefault("solution", ""));
+        articleRepository.save(article);
 
         Map<String, Object> responseBody = new LinkedHashMap<>();
         responseBody.put("documentation", orderedDoc);
@@ -177,5 +190,18 @@ public class DocControllerAdjust {
         }
 
         return result;
+    }
+
+    @GetMapping("/test-insert")
+    public ResponseEntity<String> testInsert() {
+        Article testArticle = new Article();
+        testArticle.setTitle("Test Artikel");
+        testArticle.setSymptom("Test Symptom");
+        testArticle.setProblem("Test Problem");
+        testArticle.setSolution("Test Lösung");
+
+        articleRepository.save(testArticle);
+
+        return ResponseEntity.ok("Testartikel eingefügt: " + testArticle.getId());
     }
 }

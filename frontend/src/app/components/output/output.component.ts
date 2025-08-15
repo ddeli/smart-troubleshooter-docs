@@ -1,13 +1,15 @@
 import {Component, Input} from '@angular/core';
 import {ClrCommonFormsModule, ClrTextareaModule} from '@clr/angular';
 import {FormsModule} from '@angular/forms';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-output',
   imports: [
     ClrCommonFormsModule,
     ClrTextareaModule,
-    FormsModule
+    FormsModule,
+    NgIf
   ],
   templateUrl: './output.component.html',
   standalone: true,

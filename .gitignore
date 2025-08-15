@@ -75,3 +75,4 @@ lcov-report/
 *.tmp
 *.bak
 *.old
+articles_output.txt
