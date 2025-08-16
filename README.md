@@ -11,6 +11,7 @@ An intelligent tool for automatically generating structured troubleshooting docu
 - **Frontend**: Angular
 - **Backend**: Spring Boot (Java)
 - **LLM Integration**: [Ollama](https://ollama.com) with the Mistral model
+- **Containerization**: Docker & Docker Compose
 
 ## Project Structure
 
@@ -37,14 +38,30 @@ ollama pull mistral
 
 ### 2. Starting the Project
 
-#### Backend (Spring Boot)
+#### Option 1: Using Docker (Recommended)
+
+```bash
+# Start all services with Docker Compose
+docker-compose up -d
+
+# Pull Mistral model (if not already done)
+docker exec ollama ollama pull mistral
+```
+
+The app should now be running at:  
+`http://localhost:4200` (Frontend)  
+`http://localhost:8080` (Backend API)
+
+#### Option 2: Manual Setup
+
+##### Backend (Spring Boot)
 
 ```bash
 cd backend
 ./mvnw spring-boot:run
 ```
 
-#### Frontend (Angular)
+##### Frontend (Angular)
 
 ```bash
 cd frontend
