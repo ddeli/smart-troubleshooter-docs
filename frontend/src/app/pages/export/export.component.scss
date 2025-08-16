@@ -16,7 +16,7 @@
     padding-top: 1rem;
   }
 
-  .entry-list {
+  .entry-list, .entry-grid {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -28,6 +28,7 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     background: white;
+    margin-bottom: 1rem;
 
     .entry-header {
       display: flex;
@@ -40,6 +41,15 @@
     .entry-title {
       margin: 0 0 0.5rem 0;
       color: #333;
+      font-weight: bold;
+    }
+
+    .entry-content {
+      h5 {
+        margin: 1rem 0 0.25rem 0;
+        color: #444;
+        font-size: 0.95rem;
+      }
     }
 
     .entry-body {
@@ -48,6 +58,7 @@
       line-height: 1.4;
       color: #555;
       white-space: pre-line; /* Erhält Zeilenumbrüche im Text */
+      word-wrap: break-word; /* Verhindert horizontales Overflow */
     }
   }
 
@@ -58,8 +69,9 @@
       background: #f5f5f5;
       padding: 1rem;
       border-radius: 4px;
-      max-height: 300px;
-      overflow: auto;
+      overflow: hidden;
+      white-space: pre-wrap;
+      word-wrap: break-word;
     }
   }
 }

@@ -16,10 +16,16 @@
         <div *ngFor="let entry of responseData" class="entry-card">
           <div class="entry-header">
             <span class="entry-id">#{{entry.id}}</span>
-            <span class="user-id">User: {{entry.userId}}</span>
           </div>
           <h4 class="entry-title">{{entry.title}}</h4>
-          <p class="entry-body">{{entry.body}}</p>
+          <div class="entry-content">
+            <h5>Symptom:</h5>
+            <p class="entry-body">{{entry.symptom}}</p>
+            <h5>Problem:</h5>
+            <p class="entry-body">{{entry.problem}}</p>
+            <h5>Solution:</h5>
+            <p class="entry-body">{{entry.solution}}</p>
+          </div>
         </div>
       </div>
 

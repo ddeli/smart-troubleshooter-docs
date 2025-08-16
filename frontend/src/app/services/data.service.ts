@@ -11,7 +11,7 @@ export class DataService {
   private http = inject(HttpClient);
 
   getData(): Observable<any> {
-    return this.http.get('https://jsonplaceholder.typicode.com/posts');
+    return this.http.get(`${environment.apiUrl}/articles`);
   }
 
   setTestData(){
