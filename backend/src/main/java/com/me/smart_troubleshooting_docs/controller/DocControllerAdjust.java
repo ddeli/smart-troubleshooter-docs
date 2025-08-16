@@ -118,12 +118,12 @@ public class DocControllerAdjust {
 
         // Save article to db
 
-        Article article = new Article();
-        article.setTitle(documentation.getOrDefault("title", ""));
-        article.setSymptom(documentation.getOrDefault("symptom", ""));
-        article.setProblem(documentation.getOrDefault("problem", ""));
-        article.setSolution(documentation.getOrDefault("solution", ""));
-        articleRepository.save(article);
+//        Article article = new Article();
+//        article.setTitle(documentation.getOrDefault("title", ""));
+//        article.setSymptom(documentation.getOrDefault("symptom", ""));
+//        article.setProblem(documentation.getOrDefault("problem", ""));
+//        article.setSolution(documentation.getOrDefault("solution", ""));
+//        articleRepository.save(article);
 
         Map<String, Object> responseBody = new LinkedHashMap<>();
         responseBody.put("documentation", orderedDoc);
